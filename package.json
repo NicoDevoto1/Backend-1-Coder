@@ -1,0 +1,25 @@
+{
+  "name": "backend-turnos-reservas",
+  "version": "1.0.0",
+  "description": "Pre entrega: Administrador de servicios",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicoDevoto1/Backend-1-Coder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicoDevoto1/Backend-1-Coder/issues"
+  },
+  "homepage": "https://github.com/NicoDevoto1/Backend-1-Coder#readme",
+  "dependencies": {
+    "dotenv": "^18.0.3"
+  }
+}
