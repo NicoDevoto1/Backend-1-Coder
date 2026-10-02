@@ -1,4 +1,12 @@
-import { config } from './config/env.config.js';
-import ServiceManager from './managers/ServiceManager.js';
+import express from 'express';
 
-console.log(`Servidor iniciado en puerto ${config.port}`);
+export const app = express();
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.status(200).json({
+        status: 'success',
+        messsage: 'Api del sistema de Turnos y Reservas'
+    });
+});
