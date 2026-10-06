@@ -1,12 +1,14 @@
 import express from 'express';
+import servicesRouter from './router/services.router.js';
 
-export const app = express();
+const app = express();
 
+//Middlewares fundamentales para que express entienda los JSON que le enviemos en req.body
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        status: 'success',
-        messsage: 'Api del sistema de Turnos y Reservas'
-    });
-});
+//Conectamos nuestro router a la ruta base "/api/services"
+app.use('/api/services', servicesRouter);
+
+//Exportamos "app" para que el servidor lo levante en otro archivo
+export default app;
