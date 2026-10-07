@@ -65,10 +65,24 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/services/:sid -> Actualiza un servicio
+// PUT /api/services/:sid -> Actualiza un servicio
 router.put('/:sid', async (req, res) => {
     try {
         const { sid } = req.params;
         const updatedData = req.body;
+        
+        // Validación de tipos y rangos numéricos
+        if (updatedData.price !== undefined) {
+            if (typeof updatedData.price !== 'number' || updatedData.price < 0) {
+                return res.status(400).json({ error: "El precio debe ser un número positivo" });
+            }
+        }
+        
+        if (updatedData.duration !== undefined) {
+            if (typeof updatedData.duration !== 'number' || updatedData.duration <= 0) {
+                return res.status(400).json({ error: "La duración debe ser un número mayor a cero" });
+            }
+        }
         
         const updatedService = await manager.updateService(sid, updatedData);
         

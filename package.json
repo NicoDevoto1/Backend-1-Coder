@@ -2,11 +2,10 @@
   "name": "backend-turnos-reservas",
   "version": "1.0.0",
   "description": "Pre entrega: Administrador de servicios",
-  "main": "src/server.js",
+  "main": "src/managers/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/managers/server.js"
   },
   "repository": {
     "type": "git",
