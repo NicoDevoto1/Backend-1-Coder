@@ -1,6 +1,6 @@
 // http://localhost:8080/api/services
 import express from 'express';
-import servicesRouter from '../router/services.router.js';
+import servicesRouter from './routes/services.router.js';
 import bookingsRouter from './routes/bookings.router.js';
 
 const app = express();

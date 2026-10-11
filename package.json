@@ -2,10 +2,11 @@
   "name": "backend-turnos-reservas",
   "version": "1.0.0",
   "description": "Pre entrega: Administrador de servicios",
-  "main": "src/managers/server.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/managers/server.js"
+    "start": "node src/server.js"
+    
   },
   "repository": {
     "type": "git",
