@@ -88,3 +88,11 @@ Actualiza campos específicos. Valida que `price` sea positivo y `duration` mayo
   \`\`\`bash
   curl -X DELETE http://localhost:8080/api/services/a1b2c3d4...
   \`\`\`
+
+## Arquitectura en Capas (Layered Architecture)
+Este proyecto implementa un patrón de diseño en capas para separar responsabilidades y facilitar el mantenimiento y escalabilidad:
+- **Router:** Define los endpoints y delega la petición al controlador.
+- **Controller:** Maneja el flujo HTTP (req/res) y llama a los servicios.
+- **Service:** Contiene la lógica de negocio y reglas de la aplicación, agnóstico al protocolo HTTP.
+- **Repository:** Actúa como interfaz para el acceso a datos.
+- **DAO (Data Access Object):** Interactúa directamente con la persistencia física (FileSystem) sin involucrar reglas de negocio.
