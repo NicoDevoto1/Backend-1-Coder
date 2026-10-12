@@ -1,20 +1,14 @@
-//Contiene toda la lógica de negocio (validaciones, generación de IDs y algoritmos). NO conoce req ni res.
-
 import ServicesRepository from '../repositories/services.repository.js';
-import { randomUUID } from 'crypto';
 
 const repo = new ServicesRepository();
 
 export const getServices = async (category, available) => {
-    let services = await repo.getAll();
-    if (category) {
-        services = services.filter(s => s.category.toLowerCase() === category.toLowerCase());
-    }
-    if (available !== undefined) {
-        const isAvailable = available === 'true';
-        services = services.filter(s => s.available === isAvailable);
-    }
-    return services;
+    const query = {};
+    // Regex para ignorar mayúsculas/minúsculas en Mongo
+    if (category) query.category = { $regex: new RegExp(`^${category}$`, 'i') };
+    if (available !== undefined) query.available = available === 'true';
+    
+    return await repo.getAll(query);
 };
 
 export const getServiceById = async (id) => await repo.getById(id);
@@ -24,8 +18,8 @@ export const createService = async (data) => {
     if (!name || !description || !duration || !price || !category || available === undefined) {
         return { error: 'Faltan campos obligatorios' };
     }
-    const newService = { id: randomUUID(), name, description, duration, price, category, available };
-    return await repo.create(newService);
+    // Mongo genera el _id automáticamente
+    return await repo.create({ name, description, duration, price, category, available });
 };
 
 export const updateService = async (id, data) => await repo.update(id, data);

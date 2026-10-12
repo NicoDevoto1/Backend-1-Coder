@@ -1,6 +1,5 @@
 import BookingsRepository from '../repositories/bookings.repository.js';
 import { getServiceById } from './services.service.js';
-import { randomUUID } from 'crypto';
 
 const repo = new BookingsRepository();
 
@@ -9,12 +8,7 @@ export const createBooking = async (data) => {
     if (!clientName || !clientEmail || !date || !time) {
         return { error: 'Faltan campos obligatorios' };
     }
-    const newBooking = {
-        id: randomUUID(),
-        clientName, clientEmail, date, time,
-        status: status || 'pending',
-        services: []
-    };
+    const newBooking = { clientName, clientEmail, date, time, status: status || 'pending', services: [] };
     return await repo.create(newBooking);
 };
 
@@ -27,7 +21,9 @@ export const addServiceToBooking = async (bookingId, serviceId) => {
     const serviceExists = await getServiceById(serviceId);
     if (!serviceExists) return { error: 'Servicio no encontrado' };
 
-    const serviceIndex = booking.services.findIndex(s => s.service === serviceId);
+    // En Mongo, los IDs son objetos, los convertimos a String para compararlos
+    const serviceIndex = booking.services.findIndex(s => s.service._id.toString() === serviceId);
+    
     if (serviceIndex !== -1) {
         booking.services[serviceIndex].quantity += 1;
     } else {

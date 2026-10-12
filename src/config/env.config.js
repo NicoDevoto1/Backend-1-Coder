@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const requiredEnvVars = ['PORT', 'NODE_ENV'];
+const requiredEnvVars = ['PORT', 'NODE_ENV', 'MONGO_URI'];
 
 requiredEnvVars.forEach((envVar) => {
     if (!process.env[envVar]) {
@@ -13,5 +13,6 @@ requiredEnvVars.forEach((envVar) => {
 
 export const config = {
     port: process.env.PORT,
-    nodeEnv: process.env.NODE_ENV
+    nodeEnv: process.env.NODE_ENV,
+    mongoUri: process.env.MONGO_URI
 };
