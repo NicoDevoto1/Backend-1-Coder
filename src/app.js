@@ -1,17 +1,29 @@
-// http://localhost:8080/api/services
 import express from 'express';
+import handlebars from 'express-handlebars';
+import path from 'path';
+
 import servicesRouter from './routes/services.router.js';
 import bookingsRouter from './routes/bookings.router.js';
+import viewsRouter from './routes/views.router.js'; // Último router añadido
 
 const app = express();
 
-//Middlewares fundamentales para que express entienda los JSON que le enviemos en req.body
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-//Conectamos nuestro router a la ruta base "/api/services"
+// Configuración de Handlebars
+app.engine('handlebars', handlebars.engine());
+app.set('views', path.resolve('src', 'views'));
+app.set('view engine', 'handlebars');
+
+// Archivos estáticos (CSS, JS del cliente)
+app.use(express.static(path.resolve('src', 'public')));
+
+// Rutas de la API (siguen intactas)
 app.use('/api/services', servicesRouter);
 app.use('/api/bookings', bookingsRouter);
 
-//Exportamos "app" para que el servidor lo levante en otro archivo
+// Ruta de las vistas
+app.use('/views', viewsRouter);
+
 export default app;

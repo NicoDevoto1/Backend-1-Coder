@@ -20,6 +20,13 @@ export const createService = async (req, res) => {
     try {
         const result = await service.createService(req.body);
         if (result.error) return res.status(400).json({ error: result.error });
+        
+        // EMITIR EVENTO EN TIEMPO REAL AL CREAR UN SERVICIO
+        const io = req.app.get('io'); // Recuperamos io de la app
+        if (io) {
+            io.emit('newService', result); // Emitimos el servicio recién creado
+        }
+
         res.status(201).json(result);
     } catch (error) { res.status(500).json({ error: "Error interno" }); }
 };

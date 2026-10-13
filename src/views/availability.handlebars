@@ -1,0 +1,7 @@
+<h1>{{title}}</h1>
+<p>Estos son los servicios que actualmente están habilitados para reservas:</p>
+<ul>
+    {{#each services}}
+    <li><strong>{{this.name}}</strong> - ${{this.price}}</li>
+    {{/each}}
+</ul>
