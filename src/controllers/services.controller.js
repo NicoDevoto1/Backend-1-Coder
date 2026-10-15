@@ -2,9 +2,21 @@ import * as service from '../services/services.service.js';
 
 export const getServices = async (req, res) => {
     try {
-        const { category, available } = req.query;
-        const services = await service.getServices(category, available);
-        res.status(200).json(services);
+        const { category, available, page, limit, sortBy, order } = req.query;
+        const result = await service.getServices(category, available, page, limit, sortBy, order);
+        
+        res.status(200).json({
+            status: "success",
+            payload: result.docs, // El listado de servicios
+            totalDocs: result.totalDocs,
+            page: result.page,
+            limit: result.limit,
+            totalPages: result.totalPages,
+            hasPrevPage: result.hasPrevPage,
+            hasNextPage: result.hasNextPage,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage
+        });
     } catch (error) { res.status(500).json({ error: "Error interno" }); }
 };
 

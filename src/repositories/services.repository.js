@@ -4,7 +4,7 @@ import ServicesDAO from '../dao/services.dao.js';
 const dao = new ServicesDAO();
 
 export default class ServicesRepository {
-    async getAll(query) { return await dao.getAll(query); }
+    async getAll(query, options) { return await dao.getAll(query, options); }
     async getById(id) { return await dao.getById(id); }
     async create(data) { return await dao.create(data); }
     async update(id, data) { return await dao.update(id, data); }

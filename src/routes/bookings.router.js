@@ -1,13 +1,11 @@
 import { Router } from 'express';
-import { 
-    createBooking, 
-    getBookingById, 
-    addServiceToBooking 
-} from '../controllers/bookings.controller.js';
+// ... importaciones del controller ...
+import { validateSchema } from '../middlewares/validator.middleware.js';
+import { createBookingSchema } from '../validators/booking.schema.js';
 
 const router = Router();
 
-router.post('/', createBooking);
+router.post('/', validateSchema(createBookingSchema), createBooking); // <-- Validación aplicada
 router.get('/:bid', getBookingById);
 router.post('/:bid/services/:sid', addServiceToBooking);
 
